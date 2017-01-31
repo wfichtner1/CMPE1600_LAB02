@@ -12,6 +12,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 
+//Program:      CMPE1600_Lab2.sln
+//Description:  A web browser created using windows form tools
+//              with browsing functionality
+//Lab:          2
+//Date:         January 30, 2017
+//Author:       William Fichtner
+//Class         CMPE 1600
+//Instructor:   JD Silver
 namespace CMPE1600_Lab1
 {
     public partial class Form1 : Form
@@ -35,70 +43,36 @@ namespace CMPE1600_Lab1
 
         //Global Variables       
         List<Bookmarks> bookmarkList = new List<Bookmarks>(); //List that holds the bookmark structures
+
+        //Opens form
         public Form1()
         {
             InitializeComponent();            
         }
 
-        //Attempts to read in bookmarks from
-        //an xml file
+        //Loads bookmark list on form opening
         private void Form1_Load(object sender, EventArgs e)
         {
-            try
-            {
-                FileStream fs = new FileStream("Bookmarks.xml", FileMode.Open, FileAccess.Read);
-                XmlSerializer xmlser = new XmlSerializer(typeof(List<Bookmarks>));
-                bookmarkList = (List<Bookmarks>)xmlser.Deserialize(fs);                                                              
-                fs.Close();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "lab 2");
-            }
-
-            foreach (Bookmarks b in bookmarkList)
-            {
-                UI_BookmarkBox.Items.Add(b);
-            }
+            LoadBookmarks();
         }
 
-        //Clicking go button will take user to specified url and put url in combo box
+        //Attempts to go to specified page
         private void UI_GoButton_Click(object sender, EventArgs e)
         {
-            try
-            {                                
-                UI_WebBrowser.Navigate(UI_AddressCombo.Text);
-                
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Could not navigate to page. Check url.", "Lab2", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-            }
+            GoToPage();
 
         }
 
-        //When page is finished loading, adds current url to history list
-        //unless url already exists within combo box
+        //Adds page to history
         private void UI_WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            bool dontAdd = false;
-            UI_AddressCombo.Text = UI_WebBrowser.Url.ToString();
-            if (UI_AddressCombo.Items.Count > 0)
-            {
-               foreach (string n in UI_AddressCombo.Items)
-                {
-                    if ((UI_WebBrowser.Url.ToString()) == n)
-                    {
-                        dontAdd = true;
-                    }
-                }
-               if (dontAdd != true)
-                {
-                    UI_AddressCombo.Items.Add(UI_WebBrowser.Url.ToString());
-                }
-            }
-            else
-                UI_AddressCombo.Items.Add(UI_WebBrowser.Url.ToString());
+            CreateHistory();
+        }
+        
+        //Navigates to home page
+        private void UI_HomeButton_Click(object sender, EventArgs e)
+        {
+            UI_WebBrowser.GoHome();
         }
 
         //Sends browser to last page
@@ -146,6 +120,54 @@ namespace CMPE1600_Lab1
             UI_AddressCombo.Items.Clear();
         }
 
+        //Closes form when exit button pressed
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //Saves bookmarks on closing
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveBookmarks();
+        }
+        //Attempts to navigate to specified page
+        private void GoToPage()
+        {
+            try
+            {
+                UI_WebBrowser.Navigate(UI_AddressCombo.Text);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Could not navigate to page. Check url.", "Lab2", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            }
+        }
+        //When page is finished loading, adds current url to history list
+        //unless url already exists within combo box
+        private void CreateHistory()
+        {
+            bool dontAdd = false;
+            UI_AddressCombo.Text = UI_WebBrowser.Url.ToString();
+            if (UI_AddressCombo.Items.Count > 0)
+            {
+                foreach (string n in UI_AddressCombo.Items)
+                {
+                    if ((UI_WebBrowser.Url.ToString()) == n)
+                    {
+                        dontAdd = true;
+                    }
+                }
+                if (dontAdd != true)
+                {
+                    UI_AddressCombo.Items.Add(UI_WebBrowser.Url.ToString());
+                }
+            }
+            else
+                UI_AddressCombo.Items.Add(UI_WebBrowser.Url.ToString());
+        }
+
         //Method that creates a struct for new bookmark,
         //adds it to a list, and copies that list to the
         //bookmark box.  
@@ -178,7 +200,10 @@ namespace CMPE1600_Lab1
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        
+        //Saves contents of bookmark list to
+        //a serialized xml file
+        private void SaveBookmarks()
         {
             try
             {
@@ -192,6 +217,28 @@ namespace CMPE1600_Lab1
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Lab 2");
+            }
+        }
+
+        //Loads contents of a serialized xml file
+        //into the bookmark list
+        private void LoadBookmarks()
+        {
+            try
+            {
+                FileStream fs = new FileStream("Bookmarks.xml", FileMode.Open, FileAccess.Read);
+                XmlSerializer xmlser = new XmlSerializer(typeof(List<Bookmarks>));
+                bookmarkList = (List<Bookmarks>)xmlser.Deserialize(fs);
+                fs.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "lab 2");
+            }
+
+            foreach (Bookmarks b in bookmarkList)
+            {
+                UI_BookmarkBox.Items.Add(b);
             }
         }
 

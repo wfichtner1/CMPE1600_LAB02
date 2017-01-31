@@ -86,8 +86,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // bookmarkToolStripMenuItem
             // 
@@ -137,6 +138,7 @@
             this.UI_HomeButton.TabIndex = 2;
             this.UI_HomeButton.Text = "Home";
             this.UI_HomeButton.UseVisualStyleBackColor = true;
+            this.UI_HomeButton.Click += new System.EventHandler(this.UI_HomeButton_Click);
             // 
             // UI_GoButton
             // 
