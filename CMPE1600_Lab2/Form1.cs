@@ -15,8 +15,8 @@ namespace CMPE1600_Lab1
         //declares bookmark structure
         public struct Bookmarks
         {
-            string _bookmarkTitle;
-            string _URL;
+            public string _bookmarkTitle;
+            public string _URL;
 
             public Bookmarks(string bookmark, string url)
             {
@@ -49,31 +49,74 @@ namespace CMPE1600_Lab1
             }
         }
 
+        //Sends browser to last page
         private void UI_BackButton_Click(object sender, EventArgs e)
         {
             UI_WebBrowser.GoBack();
         }
 
+        //Sends browser forward through visited pages
         private void UI_ForwardButton_Click(object sender, EventArgs e)
         {
             UI_WebBrowser.GoForward();
         }
 
+        //Adds a bookamrk
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddBookmark();
+        }        
+
+        //Sends brower to selected bookmark url
+        private void UI_BookmarkBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = UI_BookmarkBox.SelectedIndex;
+            Bookmarks temp = bookmarkList[index];
+            UI_WebBrowser.Navigate(temp._URL);
+        }
+
+        //Deleted selected bookmark
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteBookmark();
+        }
+        
+        //Method that creates a struct for new bookmark,
+        //adds it to a list, and copies that list to the
+        //bookmark box.  
+        private void AddBookmark()
         {
             bookmarkList.Add(new CMPE1600_Lab1.Form1.Bookmarks(UI_AddBookmarkBox.Text, UI_AddressCombo.Text));
 
             UI_BookmarkBox.Items.Clear();
 
             foreach (Bookmarks b in bookmarkList)
-            {                
+            {
                 UI_BookmarkBox.Items.Add(b);
             }
         }
 
-        private void UI_BookmarkBox_SelectedIndexChanged(object sender, EventArgs e)
+        //Removes the selected bookmark from
+        //the bookmark list, then recopies
+        //the list to the bookmark box.
+        private void DeleteBookmark()
         {
-            UI_WebBrowser.Navigate(UI_BookmarkBox.SelectedItem.ToString());
+            int index = UI_BookmarkBox.SelectedIndex;
+
+            bookmarkList.Remove(bookmarkList[index]);
+
+            UI_BookmarkBox.Items.Clear();
+
+            foreach (Bookmarks b in bookmarkList)
+            {
+                UI_BookmarkBox.Items.Add(b);
+            }
+        }
+
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bookmarkList.Clear();
+            UI_BookmarkBox.Items.Clear();
         }
     }
 }

@@ -56,7 +56,8 @@
             this.UI_WebBrowser.Location = new System.Drawing.Point(131, 56);
             this.UI_WebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.UI_WebBrowser.Name = "UI_WebBrowser";
-            this.UI_WebBrowser.Size = new System.Drawing.Size(508, 323);
+            this.UI_WebBrowser.ScriptErrorsSuppressed = true;
+            this.UI_WebBrowser.Size = new System.Drawing.Size(853, 706);
             this.UI_WebBrowser.TabIndex = 6;
             this.UI_WebBrowser.Url = new System.Uri("http://www.google.ca", System.UriKind.Absolute);
             // 
@@ -68,7 +69,7 @@
             this.historyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(639, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,21 +100,24 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.addToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // clearAllToolStripMenuItem
             // 
             this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearAllToolStripMenuItem.Text = "Clear All";
+            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // historyToolStripMenuItem
             // 
@@ -133,7 +137,7 @@
             // UI_GoButton
             // 
             this.UI_GoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UI_GoButton.Location = new System.Drawing.Point(478, 27);
+            this.UI_GoButton.Location = new System.Drawing.Point(823, 27);
             this.UI_GoButton.Name = "UI_GoButton";
             this.UI_GoButton.Size = new System.Drawing.Size(75, 23);
             this.UI_GoButton.TabIndex = 1;
@@ -168,7 +172,7 @@
             this.UI_AddressCombo.FormattingEnabled = true;
             this.UI_AddressCombo.Location = new System.Drawing.Point(180, 29);
             this.UI_AddressCombo.Name = "UI_AddressCombo";
-            this.UI_AddressCombo.Size = new System.Drawing.Size(292, 21);
+            this.UI_AddressCombo.Size = new System.Drawing.Size(637, 21);
             this.UI_AddressCombo.TabIndex = 0;
             this.UI_AddressCombo.Text = "google.ca";
             // 
@@ -195,16 +199,16 @@
             this.UI_BookmarkBox.FormattingEnabled = true;
             this.UI_BookmarkBox.Location = new System.Drawing.Point(5, 98);
             this.UI_BookmarkBox.Name = "UI_BookmarkBox";
-            this.UI_BookmarkBox.Size = new System.Drawing.Size(120, 277);
+            this.UI_BookmarkBox.Size = new System.Drawing.Size(120, 654);
             this.UI_BookmarkBox.TabIndex = 9;
-            this.UI_BookmarkBox.SelectedIndexChanged += new System.EventHandler(this.UI_BookmarkBox_SelectedIndexChanged);
+            this.UI_BookmarkBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.UI_BookmarkBox_MouseDoubleClick);
             // 
             // Form1
             // 
             this.AcceptButton = this.UI_GoButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 378);
+            this.ClientSize = new System.Drawing.Size(984, 761);
             this.Controls.Add(this.UI_BookmarkBox);
             this.Controls.Add(this.UI_AddBookmarkBox);
             this.Controls.Add(this.label1);
