@@ -45,6 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.UI_AddBookmarkBox = new System.Windows.Forms.TextBox();
             this.UI_BookmarkBox = new System.Windows.Forms.ListBox();
+            this.clearHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +61,7 @@
             this.UI_WebBrowser.Size = new System.Drawing.Size(853, 706);
             this.UI_WebBrowser.TabIndex = 6;
             this.UI_WebBrowser.Url = new System.Uri("http://www.google.ca", System.UriKind.Absolute);
+            this.UI_WebBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.UI_WebBrowser_DocumentCompleted);
             // 
             // menuStrip1
             // 
@@ -121,6 +123,8 @@
             // 
             // historyToolStripMenuItem
             // 
+            this.historyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearHistoryToolStripMenuItem});
             this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
             this.historyToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.historyToolStripMenuItem.Text = "History";
@@ -203,6 +207,13 @@
             this.UI_BookmarkBox.TabIndex = 9;
             this.UI_BookmarkBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.UI_BookmarkBox_MouseDoubleClick);
             // 
+            // clearHistoryToolStripMenuItem
+            // 
+            this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearHistoryToolStripMenuItem.Text = "Clear History";
+            this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.UI_GoButton;
@@ -222,6 +233,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -248,6 +261,7 @@
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearHistoryToolStripMenuItem;
     }
 }
 
